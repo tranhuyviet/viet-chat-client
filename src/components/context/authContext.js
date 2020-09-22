@@ -46,7 +46,6 @@ const AuthProvider = (props) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
     const login = (user) => {
-        console.log('login run');
         localStorage.vietChatToken = user.token;
         dispatch({
             type: 'LOGIN',

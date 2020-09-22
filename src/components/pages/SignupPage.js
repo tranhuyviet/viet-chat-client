@@ -10,6 +10,7 @@ import { SIGNUP_MUTATION } from '../utils/graphql';
 import { useMutation } from '@apollo/client';
 import { AuthContext } from '../context/authContext';
 import errorParse from '../utils/errorParse';
+import ErrorMessage from '../share/ErrorMessage';
 
 const SignupPage = (props) => {
     const classes = useStyles();
@@ -38,7 +39,7 @@ const SignupPage = (props) => {
         onSubmit,
         // validationSchema: signupSchema,
     });
-    const loading1 = true;
+
     const [signup, { loading }] = useMutation(SIGNUP_MUTATION, {
         update(proxy, result) {
             console.log('RESULT SIGNUP', result.data.signup);
@@ -63,7 +64,8 @@ const SignupPage = (props) => {
                     <AccountCircleOutlinedIcon className={classes.personIcon} />
                 </Grid> */}
                 <Grid item>
-                    <Typography className={classes.title}>Register new account</Typography>
+                    <Typography className={classes.title}>Register</Typography>
+                    {errors && errors.global && <ErrorMessage text={errors.global} />}
                 </Grid>
                 <Grid item>
                     <form noValidate onSubmit={handleSubmit}>
@@ -131,7 +133,7 @@ const SignupPage = (props) => {
                         <Grid item container justify="flex-end" alignItems="center">
                             <MyButton title="Register" loading={loading} />
                         </Grid>
-                        <Grid item container justify="center" style={{ marginTop: 24 }}>
+                        <Grid item container justify="center" alignItems="center" style={{ marginTop: 24 }}>
                             <Typography>Already have an account?</Typography>
                             <Link className={classes.link} to="/login">
                                 Login

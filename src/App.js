@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import AuthRoute from './components/utils/AuthRoute';
 import { CssBaseline, Container } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { AuthProvider } from './components/context/authContext';
@@ -33,9 +34,9 @@ function App() {
                     <div className="container">
                         <NavBar />
                         <Switch>
-                            <Route path="/login" component={LoginPage} />
-                            <Route path="/signup" component={SignupPage} />
-                            <Route exac path="/" component={HomePage} />
+                            <AuthRoute path="/login" component={LoginPage} notAuth />
+                            <AuthRoute path="/signup" component={SignupPage} notAuth />
+                            <AuthRoute exac path="/" component={HomePage} auth />
                         </Switch>
                     </div>
                 </BrowserRouter>

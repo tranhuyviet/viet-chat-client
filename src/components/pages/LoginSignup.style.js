@@ -22,7 +22,7 @@ export const useStyles = makeStyles((theme) => ({
     title: {
         textAlign: 'center',
         fontSize: 20,
-        // textTransform: 'uppercase',
+        textTransform: 'uppercase',
         marginBottom: theme.spacing(3),
         fontWeight: 'bold',
         color: theme.palette.grey['600'],

@@ -21,4 +21,10 @@ export const useStyles = makeStyles((theme) => ({
             color: 'green',
         },
     },
+    iconButton: {
+        textTransform: 'capitalize',
+        color: 'inherit',
+        fontSize: '16px',
+        paddingRight: 16,
+    },
 }));

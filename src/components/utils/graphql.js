@@ -14,3 +14,17 @@ export const SIGNUP_MUTATION = gql`
         }
     }
 `;
+
+// LOGIN
+export const LOGIN_QUERY = gql`
+    query login($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
+            _id
+            name
+            email
+            avatarUrl
+            token
+            createdAt
+        }
+    }
+`;
