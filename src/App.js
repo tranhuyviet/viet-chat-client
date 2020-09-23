@@ -3,8 +3,10 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import AuthRoute from './components/utils/AuthRoute';
 import { CssBaseline, Container } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
 import { AuthProvider } from './components/context/authContext';
-import BackGround from './components/share/BackGround';
+import { UserProvider } from './components/context/userContext';
+// import BackGround from './components/share/BackGround';
 
 import NavBar from './components/bars/NavBar';
 
@@ -29,17 +31,19 @@ function App() {
     return (
         <AuthProvider>
             <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <CssBaseline />
-                    <div className="container">
-                        <NavBar />
-                        <Switch>
-                            <AuthRoute path="/login" component={LoginPage} notAuth />
-                            <AuthRoute path="/signup" component={SignupPage} notAuth />
-                            <AuthRoute exac path="/" component={HomePage} auth />
-                        </Switch>
-                    </div>
-                </BrowserRouter>
+                <UserProvider>
+                    <BrowserRouter>
+                        <CssBaseline />
+                        <div className="container">
+                            <NavBar />
+                            <Switch>
+                                <AuthRoute path="/login" component={LoginPage} notAuth />
+                                <AuthRoute path="/signup" component={SignupPage} notAuth />
+                                <AuthRoute exac path="/" component={HomePage} auth />
+                            </Switch>
+                        </div>
+                    </BrowserRouter>
+                </UserProvider>
             </ThemeProvider>
         </AuthProvider>
     );

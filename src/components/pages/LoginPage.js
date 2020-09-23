@@ -39,18 +39,18 @@ const LoginPage = (props) => {
 
     const [loginSubmit, { loading }] = useLazyQuery(LOGIN_QUERY, {
         onCompleted(data) {
-            console.log(data);
+            // console.log(data);
             login(data.login);
             props.history.push('/');
         },
         onError(error) {
-            console.log(error.graphQLErrors[0]);
+            // console.log(error.graphQLErrors[0]);
             setErrors(errorParse(error));
         },
     });
 
     function onSubmit(values) {
-        console.log('submit', values);
+        // console.log('submit', values);
         loginSubmit({ variables: values });
     }
 

@@ -1,12 +1,42 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../context/authContext';
+import React, { useState } from 'react';
+import { Grid } from '@material-ui/core';
+
+import TabBar from '../bars/TabBar';
+import TabPanel from '../share/TabPanel';
+
+import UserList from '../lists/UserList';
 const HomePage = () => {
-    const { user } = useContext(AuthContext);
+    const [tabValue, setTabValue] = useState(1);
+
+    const handleTabValueChange = (event, newValue) => {
+        setTabValue(newValue);
+    };
+
     return (
-        <div>
-            This is Home Page
-            {user && <p>{user.name}</p>}
-        </div>
+        <Grid container>
+            <Grid item sm={4} container direction="column">
+                <Grid item sm={12}>
+                    <TabBar tabValue={tabValue} handleTabValueChange={handleTabValueChange} />
+                </Grid>
+                <Grid item sm={12}>
+                    {/* CHATS TAB */}
+                    <TabPanel value={tabValue} index={0}>
+                        Chats
+                    </TabPanel>
+                    {/* USERS TAB */}
+                    <TabPanel value={tabValue} index={1}>
+                        <UserList />
+                    </TabPanel>
+                    {/* FRIENDS TAB */}
+                    <TabPanel value={tabValue} index={2}>
+                        Friends
+                    </TabPanel>
+                </Grid>
+            </Grid>
+            <Grid item sm={8} style={{ borderLeft: '1px solid', height: '100%' }}>
+                right
+            </Grid>
+        </Grid>
     );
 };
 

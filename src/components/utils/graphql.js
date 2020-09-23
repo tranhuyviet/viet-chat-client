@@ -28,3 +28,14 @@ export const LOGIN_QUERY = gql`
         }
     }
 `;
+
+// GET USERS (LIST)
+export const GET_USERS_QUERY = gql`
+    query getUsers {
+        getUsers {
+            _id
+            name
+            avatarUrl
+        }
+    }
+`;

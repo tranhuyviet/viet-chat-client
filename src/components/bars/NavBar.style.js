@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => ({
     logo: {
         paddingLeft: theme.spacing(2),
         fontWeight: 'bold',
-        fontSize: 24,
+        fontSize: 20,
         letterSpacing: 2,
     },
     link: {
