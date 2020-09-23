@@ -5,6 +5,7 @@ import TabBar from '../bars/TabBar';
 import TabPanel from '../share/TabPanel';
 
 import UserList from '../lists/UserList';
+import MessageList from '../lists/MessageList';
 const HomePage = () => {
     const [tabValue, setTabValue] = useState(1);
 
@@ -34,7 +35,7 @@ const HomePage = () => {
                 </Grid>
             </Grid>
             <Grid item sm={8} style={{ borderLeft: '1px solid', height: '100%' }}>
-                right
+                <MessageList />
             </Grid>
         </Grid>
     );

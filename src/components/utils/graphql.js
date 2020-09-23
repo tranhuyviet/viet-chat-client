@@ -39,3 +39,25 @@ export const GET_USERS_QUERY = gql`
         }
     }
 `;
+
+// ****** MESSAGE ****** //
+// GET MESSAGES
+export const GET_MESSAGES_QUERY = gql`
+    query getMessages($withUser: ID!) {
+        getMessages(withUser: $withUser) {
+            _id
+            message
+            from {
+                _id
+                name
+                avatarUrl
+            }
+            to {
+                _id
+                name
+                avatarUrl
+            }
+            createdAt
+        }
+    }
+`;

@@ -6,6 +6,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { AuthProvider } from './components/context/authContext';
 import { UserProvider } from './components/context/userContext';
+import { MessageProvider } from './components/context/messageContext';
 // import BackGround from './components/share/BackGround';
 
 import NavBar from './components/bars/NavBar';
@@ -32,17 +33,19 @@ function App() {
         <AuthProvider>
             <ThemeProvider theme={theme}>
                 <UserProvider>
-                    <BrowserRouter>
-                        <CssBaseline />
-                        <div className="container">
-                            <NavBar />
-                            <Switch>
-                                <AuthRoute path="/login" component={LoginPage} notAuth />
-                                <AuthRoute path="/signup" component={SignupPage} notAuth />
-                                <AuthRoute exac path="/" component={HomePage} auth />
-                            </Switch>
-                        </div>
-                    </BrowserRouter>
+                    <MessageProvider>
+                        <BrowserRouter>
+                            <CssBaseline />
+                            <div className="container">
+                                <NavBar />
+                                <Switch>
+                                    <AuthRoute path="/login" component={LoginPage} notAuth />
+                                    <AuthRoute path="/signup" component={SignupPage} notAuth />
+                                    <AuthRoute exac path="/" component={HomePage} auth />
+                                </Switch>
+                            </div>
+                        </BrowserRouter>
+                    </MessageProvider>
                 </UserProvider>
             </ThemeProvider>
         </AuthProvider>
