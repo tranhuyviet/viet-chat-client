@@ -10,13 +10,12 @@ const MessageItem = ({ message }) => {
     const classes = useStyles();
     const { user } = useContext(AuthContext);
 
-    console.log(user._id, message.from.id);
     const isSender = user._id === message.from._id;
-
+    console.log(message);
     return (
         <Grid container className={classes.container}>
             <Grid item container justify={isSender ? 'flex-end' : 'flex-start'}>
-                {!isSender && <Avatar />}
+                {!isSender && <Avatar src={message.from.avatarUrl} />}
                 <div className={`${classes.messageContainer} ${isSender ? classes.sender : classes.receiver}`}>
                     {!isSender && <Typography className={classes.name}>{message.from.name}</Typography>}
                     <Typography className={classes.message}>{message.message}</Typography>

@@ -19,7 +19,8 @@ function App() {
     const theme = createMuiTheme({
         palette: {
             primary: {
-                main: '#512da8',
+                // main: '#512da8',
+                main: '#6141C2',
             },
         },
         share: {

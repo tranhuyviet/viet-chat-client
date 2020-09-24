@@ -56,6 +56,7 @@ const AuthProvider = (props) => {
     const logout = () => {
         localStorage.removeItem('vietChatToken');
         dispatch({ type: 'LOGOUT' });
+        window.location.href = '/login';
     };
 
     return <AuthContext.Provider value={{ user: state.user, login, logout }} {...props} />;

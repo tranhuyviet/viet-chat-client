@@ -3,13 +3,13 @@ import { useStyles } from './SendMessage.style';
 import { Paper, Button, CircularProgress } from '@material-ui/core';
 import { useFormik } from 'formik';
 import { MessageContext } from '../context/messageContext';
-import { SEND_MESSAGE_MUTATION } from '../utils/graphql';
+import { SEND_MESSAGE_MUTATION, GET_MESSAGES_QUERY } from '../utils/graphql';
 import { useMutation } from '@apollo/client';
 import errorParse from '../utils/errorParse';
 
 const SendMessage = () => {
     const classes = useStyles();
-    const { userSelected, sendMessage } = useContext(MessageContext);
+    const { userSelected, sendMessage, messages } = useContext(MessageContext);
 
     const initialValues = {
         to: userSelected,
@@ -38,6 +38,16 @@ const SendMessage = () => {
         update(proxy, result) {
             console.log('SEND MESSAGE RESULT', result.data.sendMessage);
             sendMessage(result.data.sendMessage);
+            // const data = proxy.readQuery({
+            //     query: GET_MESSAGES_QUERY,
+            //     variables: { withUser: userSelected },
+            // });
+            // console.log('DATA', data);
+            proxy.writeQuery({
+                query: GET_MESSAGES_QUERY,
+                variables: { withUser: userSelected },
+                data: { getMessages: [...messages, result.data.sendMessage] },
+            });
         },
         onError(error) {
             console.log(error.graphQLErrors[0]);
@@ -47,7 +57,6 @@ const SendMessage = () => {
 
     function onSubmit(values) {
         values.to = userSelected;
-        console.log('send message submit', values);
         sendMessageSubmit({ variables: values });
         values.message = '';
     }

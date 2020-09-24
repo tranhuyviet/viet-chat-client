@@ -14,7 +14,7 @@ const UserItem = ({ user }) => {
 
     const [getMessageSubmit, { loading, client }] = useLazyQuery(GET_MESSAGES_QUERY, {
         onCompleted(data) {
-            console.log('ON COMPLETED DATA', data, user._id);
+            // console.log('ON COMPLETED DATA', data, user._id);
             getMessages(data.getMessages, user._id);
         },
         onError(error) {
@@ -33,7 +33,7 @@ const UserItem = ({ user }) => {
                 query: GET_MESSAGES_QUERY,
                 variables: { withUser },
             });
-            console.log('CATCH DATA', cacheData, user._id);
+            // console.log('CATCH DATA', cacheData, user._id);
             getMessages(cacheData.getMessages, user._id);
         } catch (error) {
             // console.log(error);

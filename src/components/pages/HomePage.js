@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useStyles } from './HomePage.style';
-import { Grid } from '@material-ui/core';
+import { Grid, Avatar, Typography } from '@material-ui/core';
 
 import TabBar from '../bars/TabBar';
 import TabPanel from '../share/TabPanel';
@@ -8,13 +8,25 @@ import TabPanel from '../share/TabPanel';
 import UserList from '../lists/UserList';
 import MessageList from '../lists/MessageList';
 import SendMessage from '../share/SendMessage';
+
+import { MessageContext } from '../context/messageContext';
+import { AuthContext } from '../context/authContext';
+import chatlogo from '../../assets/images/chatlogo.svg';
+import Typed from 'react-typed';
+import Pulse from 'react-reveal/Pulse';
+import Zoom from 'react-reveal/Zoom';
+
 const HomePage = () => {
     const classes = useStyles();
     const [tabValue, setTabValue] = useState(1);
+    const { userSelected } = useContext(MessageContext);
+    const { user } = useContext(AuthContext);
 
     const handleTabValueChange = (event, newValue) => {
         setTabValue(newValue);
     };
+
+    console.log('USER SELECTED', userSelected, user);
 
     return (
         <Grid container style={{ overflow: 'hidden' }}>
@@ -39,13 +51,37 @@ const HomePage = () => {
                 </Grid>
             </Grid>
 
-            <Grid item sm={8} container direction="column">
-                <Grid item className={classes.messageListContainer}>
-                    <MessageList />
-                </Grid>
-                <Grid item className={classes.sendMessageContainer}>
-                    <SendMessage />
-                </Grid>
+            <Grid
+                item
+                sm={8}
+                container
+                direction="column"
+                className={`${!userSelected ? classes.rightSideContainer : ''}`}
+            >
+                {userSelected ? (
+                    <>
+                        <Grid item className={classes.messageListContainer}>
+                            <MessageList />
+                        </Grid>
+                        <Grid item className={classes.sendMessageContainer}>
+                            <SendMessage />
+                        </Grid>
+                    </>
+                ) : (
+                    <div className={classes.welcomeContainer}>
+                        <Pulse forever>
+                            <Avatar src={chatlogo} className={classes.welcomeLogo} />
+                        </Pulse>
+                        <Zoom top>
+                            <Typography className={classes.welcomeText}>
+                                Hello <span className={classes.welcomeName}>{user.name}! 😊</span>
+                            </Typography>
+                        </Zoom>
+                        <Typography className={classes.welcomeText}>
+                            <Typed strings={['Welcome to Viet Chat ']} typeSpeed={40} loop />
+                        </Typography>
+                    </div>
+                )}
             </Grid>
         </Grid>
     );

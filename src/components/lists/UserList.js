@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useQuery } from '@apollo/client';
+import { useTheme } from '@material-ui/core/styles';
 import { GET_USERS_QUERY } from '../utils/graphql';
 import { UserContext } from '../context/userContext';
 
@@ -10,6 +11,7 @@ import UserItem from './UserItem';
 
 const UserList = () => {
     const { users, getUsers } = useContext(UserContext);
+    const theme = useTheme();
 
     const { loading } = useQuery(GET_USERS_QUERY, {
         onCompleted(data) {
@@ -22,7 +24,12 @@ const UserList = () => {
     });
 
     return (
-        <Grid container direction="column" component="span">
+        <Grid
+            container
+            direction="column"
+            component="span"
+            style={{ borderTop: '1px solid', borderTopColor: theme.palette.grey['200'] }}
+        >
             {users && users.map((user) => <UserItem user={user} key={user._id} />)}
         </Grid>
     );

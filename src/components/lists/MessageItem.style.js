@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     name: {
         fontWeight: 'bold',
-        letterSpacing: 1,
+        // letterSpacing: 1,
         color: theme.palette.primary.main,
     },
 
