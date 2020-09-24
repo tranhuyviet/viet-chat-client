@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStyles } from './HomePage.style';
 import { Grid } from '@material-ui/core';
 
 import TabBar from '../bars/TabBar';
@@ -7,6 +8,7 @@ import TabPanel from '../share/TabPanel';
 import UserList from '../lists/UserList';
 import MessageList from '../lists/MessageList';
 const HomePage = () => {
+    const classes = useStyles();
     const [tabValue, setTabValue] = useState(1);
 
     const handleTabValueChange = (event, newValue) => {
@@ -14,12 +16,13 @@ const HomePage = () => {
     };
 
     return (
-        <Grid container>
-            <Grid item sm={4} container direction="column">
-                <Grid item sm={12}>
+        <Grid container style={{ overflow: 'hidden' }}>
+            <Grid item sm={4} container direction="column" className={classes.leftSideContainer}>
+                <Grid item style={{ padding: '0 16px' }}>
                     <TabBar tabValue={tabValue} handleTabValueChange={handleTabValueChange} />
                 </Grid>
-                <Grid item sm={12}>
+
+                <Grid item container direction="column" style={{ marginTop: 8 }}>
                     {/* CHATS TAB */}
                     <TabPanel value={tabValue} index={0}>
                         Chats
@@ -34,7 +37,8 @@ const HomePage = () => {
                     </TabPanel>
                 </Grid>
             </Grid>
-            <Grid item sm={8} style={{ borderLeft: '1px solid', height: '100%' }}>
+
+            <Grid item sm={8} className={classes.rightSideContainer}>
                 <MessageList />
             </Grid>
         </Grid>

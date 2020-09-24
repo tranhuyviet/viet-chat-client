@@ -2,13 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
     itemContainer: {
-        padding: theme.spacing(1),
+        padding: '8px 16px',
         borderBottom: '1px solid',
         borderBottomColor: theme.palette.grey['300'],
-        '&:first-child': {
-            borderTop: '1px solid',
-            borderTopColor: theme.palette.grey['300'],
-        },
+        // '&:last-child': {
+        //     borderTop: '1px solid',
+        //     borderTopColor: theme.palette.grey['300'],
+        // },
     },
     name: {
         fontWeight: 'bold',

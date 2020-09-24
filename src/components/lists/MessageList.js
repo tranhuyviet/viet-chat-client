@@ -1,17 +1,14 @@
 import React, { useContext } from 'react';
 import { MessageContext } from '../context/messageContext';
+
+import MessageItem from './MessageItem';
+
 const MessageList = () => {
     const { messages } = useContext(MessageContext);
-    if (messages) console.log('message list', messages);
+
     return (
-        <div>
-            <h1>Messages</h1>
-            {messages &&
-                messages.map((message) => (
-                    <p key={message._id}>
-                        <span>{message.from.name}</span>': ' {message.message}
-                    </p>
-                ))}
+        <div style={{ padding: 16 }}>
+            {messages && messages.map((message) => <MessageItem key={message._id} message={message} />)}
         </div>
     );
 };
