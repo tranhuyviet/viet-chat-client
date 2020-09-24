@@ -61,3 +61,24 @@ export const GET_MESSAGES_QUERY = gql`
         }
     }
 `;
+
+// SEND MESSAGE
+export const SEND_MESSAGE_MUTATION = gql`
+    mutation sendMessage($to: ID!, $message: String!) {
+        sendMessage(to: $to, message: $message) {
+            _id
+            message
+            from {
+                _id
+                name
+                avatarUrl
+            }
+            to {
+                _id
+                name
+                avatarUrl
+            }
+            createdAt
+        }
+    }
+`;

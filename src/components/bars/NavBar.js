@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useStyles } from './NavBar.style';
-import { Paper, Typography, Grid, Button } from '@material-ui/core';
+import { Paper, Typography, Avatar, Grid, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import chatlogo from '../../assets/images/chatlogo.svg';
 
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
@@ -14,7 +15,8 @@ const NavBar = () => {
         <Paper className={classes.navbar} elevation={0} square>
             <Grid container style={{ height: '100%' }}>
                 <Grid item xs={6} container alignItems="center">
-                    <Typography className={classes.logo}>VietChat</Typography>
+                    <Avatar src={chatlogo} className={classes.logo} />
+                    <Typography className={classes.logoText}>Chat</Typography>
                 </Grid>
                 <Grid item xs={6} container alignItems="center" justify="flex-end">
                     {user && user._id && (

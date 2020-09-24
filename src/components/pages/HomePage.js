@@ -7,6 +7,7 @@ import TabPanel from '../share/TabPanel';
 
 import UserList from '../lists/UserList';
 import MessageList from '../lists/MessageList';
+import SendMessage from '../share/SendMessage';
 const HomePage = () => {
     const classes = useStyles();
     const [tabValue, setTabValue] = useState(1);
@@ -38,8 +39,13 @@ const HomePage = () => {
                 </Grid>
             </Grid>
 
-            <Grid item sm={8} className={classes.rightSideContainer}>
-                <MessageList />
+            <Grid item sm={8} container direction="column">
+                <Grid item className={classes.messageListContainer}>
+                    <MessageList />
+                </Grid>
+                <Grid item className={classes.sendMessageContainer}>
+                    <SendMessage />
+                </Grid>
             </Grid>
         </Grid>
     );

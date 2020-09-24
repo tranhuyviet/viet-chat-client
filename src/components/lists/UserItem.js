@@ -9,13 +9,13 @@ import errorParse from '../utils/errorParse';
 
 const UserItem = ({ user }) => {
     const classes = useStyles();
-    const [withUser, setWithUser] = useState(null);
-    const { getMessages } = useContext(MessageContext);
+    // const [withUser, setWithUser] = useState(null);
+    const { getMessages, userSelected } = useContext(MessageContext);
 
     const [getMessageSubmit, { loading, client }] = useLazyQuery(GET_MESSAGES_QUERY, {
         onCompleted(data) {
-            console.log('ON COMPLETED DATA', data);
-            getMessages(data.getMessages);
+            console.log('ON COMPLETED DATA', data, user._id);
+            getMessages(data.getMessages, user._id);
         },
         onError(error) {
             console.log(errorParse(error));
@@ -33,8 +33,8 @@ const UserItem = ({ user }) => {
                 query: GET_MESSAGES_QUERY,
                 variables: { withUser },
             });
-            console.log('CATCH DATA', cacheData);
-            getMessages(cacheData.getMessages);
+            console.log('CATCH DATA', cacheData, user._id);
+            getMessages(cacheData.getMessages, user._id);
         } catch (error) {
             // console.log(error);
         }
@@ -42,7 +42,10 @@ const UserItem = ({ user }) => {
 
     return (
         <Paper component="span" elevation={0} square>
-            <CardActionArea className={classes.itemContainer} onClick={() => selectedUserToGetMessage(user._id)}>
+            <CardActionArea
+                className={`${classes.itemContainer} ${userSelected === user._id ? classes.selected : ''}`}
+                onClick={() => selectedUserToGetMessage(user._id)}
+            >
                 <Grid container component="span">
                     <Grid item xs={2} component="span">
                         <Avatar src={user.avatarUrl} component="span" />

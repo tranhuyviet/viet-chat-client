@@ -6,6 +6,8 @@ export const useStyles = makeStyles((theme) => ({
     },
     name: {
         fontWeight: 'bold',
+        letterSpacing: 1,
+        color: theme.palette.primary.main,
     },
 
     time: {
@@ -23,7 +25,11 @@ export const useStyles = makeStyles((theme) => ({
         margin: '0 8px',
         padding: '8px 16px',
         maxWidth: 400,
-        background: theme.palette.common.white,
+        // border: '1px solid',
+        // borderColor: theme.palette.grey['200'],
+        // boxShadow: theme.shadows[1],
+        // background: theme.palette.common.white,
+        background: '#D8EFFE',
         borderBottomLeftRadius: '20px!important',
         borderBottomRightRadius: '20px!important',
     },

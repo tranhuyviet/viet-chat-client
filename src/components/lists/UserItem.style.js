@@ -10,6 +10,9 @@ export const useStyles = makeStyles((theme) => ({
         //     borderTopColor: theme.palette.grey['300'],
         // },
     },
+    selected: {
+        background: theme.palette.grey['200'],
+    },
     name: {
         fontWeight: 'bold',
         fontSize: 15,

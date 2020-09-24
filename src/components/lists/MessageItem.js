@@ -10,9 +10,9 @@ const MessageItem = ({ message }) => {
     const classes = useStyles();
     const { user } = useContext(AuthContext);
 
+    console.log(user._id, message.from.id);
     const isSender = user._id === message.from._id;
 
-    console.log(user._id, message.from._id, isSender);
     return (
         <Grid container className={classes.container}>
             <Grid item container justify={isSender ? 'flex-end' : 'flex-start'}>
