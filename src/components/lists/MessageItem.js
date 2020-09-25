@@ -15,7 +15,7 @@ const MessageItem = ({ message }) => {
     return (
         <Grid container className={classes.container}>
             <Grid item container justify={isSender ? 'flex-end' : 'flex-start'}>
-                {!isSender && <Avatar src={message.from.avatarUrl} />}
+                {!isSender && <Avatar src={message.from.avatarUrl}>{message.from.name[0]}</Avatar>}
                 <div className={`${classes.messageContainer} ${isSender ? classes.sender : classes.receiver}`}>
                     {!isSender && <Typography className={classes.name}>{message.from.name}</Typography>}
                     <Typography className={classes.message}>{message.message}</Typography>

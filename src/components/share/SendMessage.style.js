@@ -4,10 +4,7 @@ export const useStyles = makeStyles((theme) => ({
     inputContainer: {
         height: 60,
         width: '100%',
-        paddingRight: 8,
-        // width: 350,
-        // borderTop: '1px solid',
-        // borderTopColor: theme.palette.grey['200'],
+
         position: 'absolute',
         zIndex: 101,
         bottom: 0,
@@ -28,8 +25,5 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexGrow: 1,
         overflowWrap: 'break-word',
-    },
-    postButton: {
-        textTransform: 'capitalize',
     },
 }));
