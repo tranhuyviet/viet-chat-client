@@ -31,6 +31,21 @@ export const useStyles = makeStyles((theme) => ({
             color: 'green',
         },
     },
+    avatar: {
+        width: 36,
+        height: 36,
+    },
+    name: {
+        fontWeight: 'bold',
+        marginLeft: theme.spacing(1),
+    },
+    divider: {
+        margin: '0 16px',
+        backgroundColor: theme.palette.common.white,
+        opacity: 0.5,
+        height: '50%',
+        alignSelf: 'center',
+    },
     iconButton: {
         textTransform: 'capitalize',
         color: 'inherit',

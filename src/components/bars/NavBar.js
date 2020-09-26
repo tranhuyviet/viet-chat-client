@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useStyles } from './NavBar.style';
-import { Paper, Typography, Avatar, Grid, Button } from '@material-ui/core';
+import { Paper, Typography, Avatar, Grid, Button, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import chatlogo from '../../assets/images/chatlogo.svg';
 
@@ -20,9 +20,18 @@ const NavBar = () => {
                 </Grid>
                 <Grid item xs={6} container alignItems="center" justify="flex-end">
                     {user && user._id && (
-                        <Button startIcon={<ExitToAppIcon />} className={classes.iconButton} onClick={() => logout()}>
-                            Logout
-                        </Button>
+                        <>
+                            <Avatar src={user.avatarUrl} className={classes.avatar} />
+                            <Typography className={classes.name}>{user.name}</Typography>
+                            <Divider orientation="vertical" flexItem className={classes.divider} />
+                            <Button
+                                startIcon={<ExitToAppIcon />}
+                                className={classes.iconButton}
+                                onClick={() => logout()}
+                            >
+                                Logout
+                            </Button>
+                        </>
                     )}
                 </Grid>
             </Grid>
