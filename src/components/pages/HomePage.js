@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useStyles } from './HomePage.style';
 import { Grid, Avatar, Typography } from '@material-ui/core';
 
@@ -11,22 +11,47 @@ import SendMessage from '../share/SendMessage';
 
 import { MessageContext } from '../context/messageContext';
 import { AuthContext } from '../context/authContext';
+import { UserContext } from '../context/userContext';
 import chatlogo from '../../assets/images/chatlogo.svg';
 import Typed from 'react-typed';
 import Pulse from 'react-reveal/Pulse';
 import Zoom from 'react-reveal/Zoom';
 
+import { useSubscription } from '@apollo/client';
+import { NEW_MESSAGE_SUBSCRIPTION, GET_MESSAGES_QUERY } from '../utils/graphql';
+
 const HomePage = () => {
     const classes = useStyles();
     const [tabValue, setTabValue] = useState(1);
-    const { userSelected } = useContext(MessageContext);
+    const { sendMessage, messages } = useContext(MessageContext);
     const { user } = useContext(AuthContext);
+    const { userSelected } = useContext(UserContext);
+
+    const { data, error } = useSubscription(NEW_MESSAGE_SUBSCRIPTION, {
+        onSubscriptionData(result) {
+            result.client.writeQuery({
+                query: GET_MESSAGES_QUERY,
+                variables: { withUser: userSelected },
+                data: { getMessages: [...messages, result.subscriptionData.data.newMessage] },
+            });
+        },
+    });
 
     const handleTabValueChange = (event, newValue) => {
         setTabValue(newValue);
     };
 
-    console.log('USER SELECTED', userSelected, user);
+    useEffect(() => {
+        if (error) {
+            console.log(error);
+        }
+
+        if (data) {
+            sendMessage(data.newMessage);
+        }
+    }, [data, error]);
+
+    // console.log('USER SELECTED', userSelected, user);
 
     return (
         <Grid container style={{ overflow: 'hidden' }}>

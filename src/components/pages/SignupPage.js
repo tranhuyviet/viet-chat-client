@@ -44,7 +44,7 @@ const SignupPage = (props) => {
         update(proxy, result) {
             console.log('RESULT SIGNUP', result.data.signup);
             login(result.data.signup);
-            props.history.push('/');
+            window.location.href = '/';
         },
         onError(error) {
             console.log(error.graphQLErrors[0]);

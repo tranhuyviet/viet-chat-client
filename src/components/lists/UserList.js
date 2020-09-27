@@ -5,12 +5,12 @@ import { useTheme } from '@material-ui/core/styles';
 import { GET_USERS_QUERY } from '../utils/graphql';
 import { UserContext } from '../context/userContext';
 
-import { Grid } from '@material-ui/core';
+import { Grid, CircularProgress } from '@material-ui/core';
 
 import UserItem from './UserItem';
 
 const UserList = () => {
-    const { users, getUsers } = useContext(UserContext);
+    const { users, getUsers, userSelected, setUserSelected } = useContext(UserContext);
     const theme = useTheme();
 
     const { loading } = useQuery(GET_USERS_QUERY, {
@@ -30,7 +30,20 @@ const UserList = () => {
             component="span"
             style={{ borderTop: '1px solid', borderTopColor: theme.palette.grey['200'] }}
         >
-            {users && users.map((user) => <UserItem user={user} key={user._id} />)}
+            {/* {loading && (
+                <Grid item container component="span" justify="center">
+                    <CircularProgress style={{ marginTop: 16, height: 20, width: 20 }} component="span" />
+                </Grid>
+            )} */}
+            {users &&
+                users.map((user) => (
+                    <UserItem
+                        user={user}
+                        key={user._id}
+                        userSelected={userSelected}
+                        setUserSelected={setUserSelected}
+                    />
+                ))}
         </Grid>
     );
 };

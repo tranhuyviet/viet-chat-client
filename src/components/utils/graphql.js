@@ -82,3 +82,24 @@ export const SEND_MESSAGE_MUTATION = gql`
         }
     }
 `;
+
+// NEW MESSAGE SUBCRIPTION
+export const NEW_MESSAGE_SUBSCRIPTION = gql`
+    subscription newMessage {
+        newMessage {
+            _id
+            message
+            from {
+                _id
+                name
+                avatarUrl
+            }
+            to {
+                _id
+                name
+                avatarUrl
+            }
+            createdAt
+        }
+    }
+`;

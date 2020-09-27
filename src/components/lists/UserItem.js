@@ -7,34 +7,39 @@ import { useLazyQuery, useQuery } from '@apollo/client';
 import { GET_MESSAGES_QUERY } from '../utils/graphql';
 import errorParse from '../utils/errorParse';
 
-const UserItem = ({ user }) => {
+const UserItem = ({ user, userSelected, setUserSelected }) => {
     const classes = useStyles();
     // const [withUser, setWithUser] = useState(null);
-    const { getMessages, userSelected } = useContext(MessageContext);
+    const { getMessages, messages } = useContext(MessageContext);
 
     const [getMessageSubmit, { loading, client }] = useLazyQuery(GET_MESSAGES_QUERY, {
         onCompleted(data) {
-            // console.log('ON COMPLETED DATA', data, user._id);
-            getMessages(data.getMessages, user._id);
+            console.log('ON COMPLETED DATA', data, user._id);
+            getMessages(data.getMessages);
         },
         onError(error) {
             console.log(errorParse(error));
         },
-        // fetchPolicy: 'cache-and-network',
+        // fetchPolicy: 'network-only',
         // notifyOnNetworkStatusChange: true,
     });
 
     const selectedUserToGetMessage = (withUser) => {
+        setUserSelected(withUser);
+        console.log('userselected', userSelected);
+
         getMessageSubmit({
             variables: { withUser },
         });
+
         try {
+            console.log('here');
             const cacheData = client.readQuery({
                 query: GET_MESSAGES_QUERY,
                 variables: { withUser },
             });
-            // console.log('CATCH DATA', cacheData, user._id);
-            getMessages(cacheData.getMessages, user._id);
+            console.log('here here', cacheData);
+            getMessages(cacheData.getMessages);
         } catch (error) {
             // console.log(error);
         }

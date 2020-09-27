@@ -10,7 +10,11 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: 14,
         color: theme.palette.primary.main,
     },
-
+    message: {
+        wordBreak: 'break-word',
+        hyphens: 'auto',
+        MozHyphens: 'auto',
+    },
     time: {
         textAlign: 'right',
         fontSize: 12,

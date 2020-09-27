@@ -41,7 +41,7 @@ const LoginPage = (props) => {
         onCompleted(data) {
             // console.log(data);
             login(data.login);
-            props.history.push('/');
+            window.location.href = '/';
         },
         onError(error) {
             // console.log(error.graphQLErrors[0]);

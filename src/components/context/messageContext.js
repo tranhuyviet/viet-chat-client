@@ -6,7 +6,7 @@ const initialState = {
 
 const MessageContext = createContext({
     messages: [],
-    userSelected: '',
+    // userSelected: '',
     getMessages: (messages) => {},
     sendMessage: (message) => {},
 });
@@ -17,7 +17,7 @@ const messageReducer = (state, action) => {
             return {
                 ...state,
                 messages: action.messages,
-                userSelected: action.userSelected,
+                // userSelected: action.userSelected,
             };
         }
         case 'SEND_MESSAGE': {
@@ -26,6 +26,7 @@ const messageReducer = (state, action) => {
                 messages: [...state.messages, action.payload],
             };
         }
+
         default:
             return state;
     }
@@ -34,11 +35,11 @@ const messageReducer = (state, action) => {
 const MessageProvider = (props) => {
     const [state, dispatch] = useReducer(messageReducer, initialState);
 
-    const getMessages = (messages, userSelected) => {
+    const getMessages = (messages) => {
         dispatch({
             type: 'GET_MESSAGES',
             messages,
-            userSelected,
+            // userSelected,
         });
     };
 
@@ -48,12 +49,7 @@ const MessageProvider = (props) => {
             payload: message,
         });
     };
-    return (
-        <MessageContext.Provider
-            value={{ messages: state.messages, getMessages, sendMessage, userSelected: state.userSelected }}
-            {...props}
-        />
-    );
+    return <MessageContext.Provider value={{ messages: state.messages, getMessages, sendMessage }} {...props} />;
 };
 
 export { MessageContext, MessageProvider };

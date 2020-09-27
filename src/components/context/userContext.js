@@ -2,6 +2,7 @@ import React, { useReducer, createContext } from 'react';
 
 const initialState = {
     users: [],
+    userSelected: '',
 };
 
 const UserContext = createContext({
@@ -17,6 +18,13 @@ const userReducer = (state, action) => {
                 users: action.payload,
             };
         }
+        case 'SET_SELECTED_USER': {
+            return {
+                ...state,
+                userSelected: action.payload,
+            };
+        }
+
         default:
             return state;
     }
@@ -32,7 +40,19 @@ const UserProvider = (props) => {
         });
     };
 
-    return <UserContext.Provider value={{ users: state.users, getUsers }} {...props} />;
+    const setUserSelected = (user) => {
+        dispatch({
+            type: 'SET_SELECTED_USER',
+            payload: user,
+        });
+    };
+
+    return (
+        <UserContext.Provider
+            value={{ users: state.users, getUsers, userSelected: state.userSelected, setUserSelected }}
+            {...props}
+        />
+    );
 };
 
 export { UserContext, UserProvider };

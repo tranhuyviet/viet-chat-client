@@ -2,7 +2,10 @@ import React, { useContext } from 'react';
 import { useStyles } from './SendMessage.style';
 import { Paper, Button, CircularProgress, IconButton } from '@material-ui/core';
 import { useFormik } from 'formik';
+
 import { MessageContext } from '../context/messageContext';
+import { UserContext } from '../context/userContext';
+
 import { SEND_MESSAGE_MUTATION, GET_MESSAGES_QUERY } from '../utils/graphql';
 import { useMutation } from '@apollo/client';
 import errorParse from '../utils/errorParse';
@@ -12,7 +15,8 @@ import SendRoundedIcon from '@material-ui/icons/SendRounded';
 
 const SendMessage = () => {
     const classes = useStyles();
-    const { userSelected, sendMessage, messages } = useContext(MessageContext);
+    const { sendMessage, messages } = useContext(MessageContext);
+    const { userSelected } = useContext(UserContext);
 
     const initialValues = {
         to: userSelected,
@@ -38,20 +42,6 @@ const SendMessage = () => {
     });
 
     const [sendMessageSubmit, { loading }] = useMutation(SEND_MESSAGE_MUTATION, {
-        update(proxy, result) {
-            console.log('SEND MESSAGE RESULT', result.data.sendMessage);
-            sendMessage(result.data.sendMessage);
-            // const data = proxy.readQuery({
-            //     query: GET_MESSAGES_QUERY,
-            //     variables: { withUser: userSelected },
-            // });
-            // console.log('DATA', data);
-            proxy.writeQuery({
-                query: GET_MESSAGES_QUERY,
-                variables: { withUser: userSelected },
-                data: { getMessages: [...messages, result.data.sendMessage] },
-            });
-        },
         onError(error) {
             console.log(error.graphQLErrors[0]);
             setErrors(errorParse(error));
@@ -71,7 +61,6 @@ const SendMessage = () => {
             <form className={classes.inputContainer} noValidate onSubmit={handleSubmit}>
                 <input
                     name="message"
-                    // placeholder={user ? 'Add a comment' : 'You must login to add comments and likes'}
                     placeholder="Type a message"
                     className={classes.input}
                     autoComplete="off"
@@ -81,7 +70,6 @@ const SendMessage = () => {
                     value={values.message}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    // disabled={!user || loading}
                 ></input>
                 {/* <Button type="submit" className={classes.postButton} color="primary" disabled={!isValid || loading}>
                     Send
@@ -93,7 +81,6 @@ const SendMessage = () => {
                         <SendRoundedIcon style={{ fontSize: 32 }} />
                     )}
                 </IconButton>
-                {/* {loading && <CircularProgress style={{ position: 'absolute', left: '50%' }} />} */}
             </form>
         </Paper>
     );
